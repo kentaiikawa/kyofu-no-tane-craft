@@ -46,10 +46,11 @@ h1 span{color:var(--red)}
 .card.closed{width:auto;padding:10px 12px}
 .card .actions .btn{padding:8px 12px 9px;font-size:14px}
 .card-toggle{margin-left:auto}
+.card .actions{flex-wrap:nowrap}
 .sub{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(110px + env(safe-area-inset-bottom,0px));z-index:4;width:min(44rem,calc(100% - 32px));margin:0;
   text-align:center;font-size:clamp(1rem,2.3vw,1.3rem);line-height:1.7;color:#fff;text-shadow:2px 2px 0 #000,0 0 6px #000;pointer-events:none;text-wrap:balance}
 .sub{line-height:2.1} .sub rt{font-size:.55em;color:#ffd98a;letter-spacing:0}
-@media (max-width:560px){ h1{font-size:28px} .lede{font-size:12px;line-height:1.7} .card{padding:12px 14px;max-height:60vh;overflow:auto} .card.closed{padding:10px 12px;max-height:none;overflow:visible} .views .btn{font-size:12px;padding:6px 8px 7px} }
+@media (max-width:560px){ .card .actions{gap:6px} .card .actions .btn{font-size:12px;padding:7px 8px 8px;letter-spacing:0;white-space:nowrap} .card-toggle{margin-left:0} h1{font-size:28px} .lede{font-size:12px;line-height:1.7} .card{padding:12px 14px;max-height:60vh;overflow:auto} .card.closed{padding:10px 12px;max-height:none;overflow:visible} .views .btn{font-size:12px;padding:6px 8px 7px} }
 @media (max-height:480px){ .card{max-height:70vh;overflow:auto} }
 </style>
 </head>
@@ -66,7 +67,7 @@ h1 span{color:var(--red)}
   <div class="actions">
     <button class="btn primary" id="storyBtn">▶ 物語を再生</button>
     <button class="btn" id="vrBtn">VRで見る</button>
-    <button class="btn card-toggle" id="cardToggle" aria-expanded="true" aria-controls="card">▼ 説明を隠す</button>
+    <button class="btn card-toggle" id="cardToggle" aria-expanded="true" aria-controls="card">▼ 隠す</button>
   </div>
   <p class="note" id="vrNote" hidden></p>
 </section>
@@ -733,7 +734,7 @@ story.onState=()=>{ storyBtn.textContent=story.playing?'■ 止める':'▶ 物�
 storyBtn.addEventListener('click',()=>{ if(story.playing){ story.stop(); return; } go(4); story.start(); });
 // the description can be shown or hidden; phones and short landscape screens start with it hidden
 const cardToggle=$('cardToggle');
-function setCardOpen(open){ card.classList.toggle('closed',!open); cardToggle.setAttribute('aria-expanded',String(open)); cardToggle.textContent=open?'▼ 説明を隠す':'ⓘ 説明を見る'; }
+function setCardOpen(open){ card.classList.toggle('closed',!open); cardToggle.setAttribute('aria-expanded',String(open)); cardToggle.textContent=open?'▼ 隠す':'ⓘ 説明'; }
 cardToggle.addEventListener('click',()=>setCardOpen(card.classList.contains('closed')));
 setCardOpen(!(window.matchMedia && matchMedia('(max-width:560px), (max-height:480px)').matches));
 
